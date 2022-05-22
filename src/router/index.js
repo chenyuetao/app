@@ -14,9 +14,26 @@ const routes = [
         component: () => import('@/views/login')
     },
     {
-        path: '/home',
-        home: 'Home',
-        component: () => import('@/views/Home')
+        path: '/main',
+        name: 'Main',
+        component: () => import('@/views/main'),
+        children: [
+            {
+                path: 'home',
+                name: 'Home',
+                component: () => import('@/views/home'),
+            },
+            {
+                path: 'mall',
+                name: 'Mall',
+                component: () => import('@/views/mall'),
+            },
+            {
+                path: 'user',
+                name: 'User',
+                component: () => import('@/views/user'),
+            }
+        ]
     }
 ]
 
@@ -42,9 +59,12 @@ router.beforeEach((to, from, next) => {
 
             next('/login')
         } else {
-            
+            next()
         }
     }
 })
-
+const VueRouterPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(to) {
+    return VueRouterPush.call(this, to).catch(err => err)
+}
 export default router

@@ -9,7 +9,15 @@ import {
   Menu,
   Submenu,
   MenuItem,
-  MenuItemGroup
+  MenuItemGroup,
+  Form,
+  FormItem,
+  Input,
+  Message,
+  Notification,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/reset.css'
@@ -28,7 +36,15 @@ Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
-
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
+Vue.prototype.$notify = Notification;
+Vue.prototype.$message = Message;
 new Vue({
   router,
   store,

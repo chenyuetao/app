@@ -5,61 +5,87 @@
     @open="handleOpen"
     @close="handleClose"
     :collapse="isCollapse"
+    background-color="#545c64"
+    text-color="#fff"
+    active-text-color="#ffd04b"
   >
-    <el-submenu index="1">
+    <h3>{{ isCollapse ? "后台" : "通用后台管理系统" }}</h3>
+    <el-menu-item
+      @click="clickMenu(item)"
+      v-for="item in noChildren"
+      :index="item.path"
+      :key="item.path"
+    >
+      <i :class="'el-icon-' + item.icon"></i>
+      <span slot="title">{{ item.label }}</span>
+    </el-menu-item>
+    <el-submenu
+      v-for="item in hasChildren"
+      :index="item.label"
+      :key="item.label"
+    >
       <template slot="title">
-        <i class="el-icon-location"></i>
-        <span slot="title">导航一</span>
+        <i :class="'el-icon-' + item.icon"></i>
+        <span slot="title">{{ item.label }}</span>
       </template>
-      <el-menu-item-group>
-        <span slot="title">分组一</span>
-        <el-menu-item index="1-1">选项1</el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
+      <el-menu-item-group
+        v-for="(subItem, subIndex) in item.children"
+        :key="subItem.path"
+        :index="subIndex"
+      >
+        <el-menu-item>{{ subItem.label }}</el-menu-item>
       </el-menu-item-group>
-      <el-menu-item-group title="分组2">
-        <el-menu-item index="1-3">选项3</el-menu-item>
-      </el-menu-item-group>
-      <el-submenu index="1-4">
-        <span slot="title">选项4</span>
-        <el-menu-item index="1-4-1">选项1</el-menu-item>
-      </el-submenu>
     </el-submenu>
-    <el-menu-item index="2">
-      <i class="el-icon-menu"></i>
-      <span slot="title">导航二</span>
-    </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <i class="el-icon-document"></i>
-      <span slot="title">导航三</span>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <i class="el-icon-setting"></i>
-      <span slot="title">导航四</span>
-    </el-menu-item>
   </el-menu>
 </template>
 
 <script>
-// function count(sb, gjj) {
-//   const sbGr = sb * 0.105;
-//   const sbGs = sb * 0.2075;
-//   const sbZ = sbGr + sbGs;
-//   const gjjGr = gjj * 0.08;
-//   const gjjGs = gjj * 0.08;
-//   const gjjZ = gjjGr + gjjGs;
-
-//   console.info("社保个人：" + sbGr);
-//   console.info("社保公司：" + sbGs);
-//   console.info("社保总额：" + sbZ);
-//   console.info("=====================");
-//   console.info("公积金个人：" + gjjGr);
-//   console.info("公积金公司：" + gjjGs);
-//   console.info("公积金总额：" + gjjZ);
-// }
 export default {
   data() {
     return {
-      isCollapse: false,
+      menu: [
+        {
+          path: "/home",
+          name: "home",
+          label: "首页",
+          icon: "s-home",
+          url: "Home/Home",
+        },
+        {
+          path: "/mall",
+          name: "mall",
+          label: "商品管理",
+          icon: "video-play",
+          url: "MallManage/MallManage",
+        },
+        {
+          path: "/user",
+          name: "user",
+          label: "用户管理",
+          icon: "user",
+          url: "UserManage/UserManage",
+        },
+        {
+          label: "其他",
+          icon: "location",
+          children: [
+            {
+              path: "/page1",
+              name: "page1",
+              label: "页面1",
+              icon: "setting",
+              url: "Other/PageOne",
+            },
+            {
+              path: "/page2",
+              name: "page2",
+              label: "页面2",
+              icon: "setting",
+              url: "Other/PageTwo",
+            },
+          ],
+        },
+      ],
     };
   },
   methods: {
@@ -69,13 +95,37 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
+    clickMenu(item) {
+      this.$router.push("/main" + item.path);
+    },
+  },
+  computed: {
+    noChildren() {
+      return this.menu.filter((item) => !item.children);
+    },
+    hasChildren() {
+      return this.menu.filter((item) => item.children);
+    },
+    isCollapse() {
+      return this.$store.state.isCollapse;
+    },
   },
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
+}
+.el-menu {
+  height: 100%;
+  border: none;
+  h3 {
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    line-height: 60px;
+  }
 }
 </style>
