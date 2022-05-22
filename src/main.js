@@ -17,7 +17,10 @@ import {
   Notification,
   Dropdown,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Row,
+  Col,
+  Card
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/reset.css'
@@ -42,6 +45,9 @@ Vue.use(Input)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Card)
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
 Vue.prototype.$notify = Notification;
 Vue.prototype.$message = Message;

@@ -51,5 +51,11 @@ export default {
     line-height: 30px;
     color: #fff;
   }
+  .r-content {
+    img {
+      width: 40px;
+      border-radius: 50%;
+    }
+  }
 }
 </style>
