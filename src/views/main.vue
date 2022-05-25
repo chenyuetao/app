@@ -21,7 +21,7 @@ export default {
   name: "Main",
   components: {
     CommonAside,
-    CommonHeader
+    CommonHeader,
   },
   data() {
     return {};

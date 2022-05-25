@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { lonin } from "@/api/request";
 export default {
   name: "login",
   data() {
@@ -48,13 +49,19 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if(this.ruleForm.userName === 'admin' && this.ruleForm.passWord === '123'){
-            this.$message.success('登录成功')
-            this.$store.commit('addToken','woshitoken')
-            this.$router.push('/main/home')
-          }else{
-            this.$message.error('登录失败')
-          }
+          lonin({
+            username: this.ruleForm.userName,
+            password: this.ruleForm.passWord,
+          }).then((res) => {
+            const data = res.data;
+            if (data.state === true && data.code === 200) {
+              this.$message.success("登录成功");
+              this.$store.commit("addToken", data.token);
+              this.$router.push("/main/home");
+            } else {
+              this.$message.error("登录失败");
+            }
+          });
         } else {
           console.log("error submit!!");
           return false;

@@ -16,32 +16,30 @@
       </el-card>
       <el-card style="margin-top: 20px">
         <el-table :data="tableData">
-          <el-table-column
-            v-for="(item, key) in tableLabel"
-            :key="key"
-            :prop="key"
-            :label="item"
-          >
+          <el-table-column v-for="(item, key) in tableLabel" :key="key" :prop="key" :label="item">
           </el-table-column>
         </el-table>
       </el-card>
     </el-col>
     <el-col :span="16">
       <div class="r-num">
-        <el-card
-          v-for="item in countData"
-          :key="item.name"
-          :body-style="{ display: 'flex', padding: 0, height: '76px' }"
-        >
-          <i
-            class="icon"
-            :class="`el-icon-${item.icon}`"
-            :style="{ background: item.color }"
-          ></i>
+        <el-card v-for="item in countData" :key="item.name" :body-style="{ display: 'flex', padding: 0, height: '76px' }">
+          <i class="icon" :class="`el-icon-${item.icon}`" :style="{ background: item.color }"></i>
           <div class="detail">
             <p class="num">￥{{ item.value }}</p>
             <p class="txt">{{ item.name }}</p>
           </div>
+        </el-card>
+      </div>
+      <el-card style="height: 280px">
+
+      </el-card>
+      <div class="graph">
+        <el-card style="height: 260px">
+
+        </el-card>
+        <el-card style="height: 260px">
+
         </el-card>
       </div>
     </el-col>
@@ -201,6 +199,14 @@ export default {
           color: #b8b5b5;
         }
       }
+    }
+  }
+  .graph {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    .el-card {
+      width: 49%;
     }
   }
 }
